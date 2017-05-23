@@ -1,14 +1,12 @@
 (function ($) {
+
+
 	$.fn.stickyMenu = function(options) {
 		var mainObject = {
 			scrollDirection: 0,
-
 			lastContHeight: 0,
-
 			lastTopSticky: 0,
-
 			lastScrollTop: 0,
-
 			lastDirection: 0,
 
 			min: function (elements) {
@@ -19,6 +17,45 @@
 					}
 				});
 				return minimum;
+			},
+
+			max: function (elements) {
+				var maximum = elements[0];
+				elements.forEach(function (item) {
+					if(item > maximum) {
+						maximum = item;
+					}
+				});
+				return maximum;
+			},
+
+			checkResize: function ($el, callback) {
+				$el.addResizeListener(callback);
+			},
+
+			resizeCallback: function (options) {
+				var $el = this;
+				var $container = $el.closest(options.container);
+				var offsetBottom = $el.offset().top + $el.height();
+				var containerOffsetBottom = $container.offset().top + $container.height();
+				if(offsetBottom > containerOffsetBottom) {
+					$el.css({
+						"position": "absolute",
+						"bottom": "0px",
+						"top": ""
+					});
+					return;
+				}
+
+				var offsetTop = $el.offset().top;
+				var containerOffsetTop = $container.offset().top;
+				if(offsetTop > $(window).scrollTop()) {
+					$el.css({
+						"position": "absolute",
+						"bottom": "",
+						"top": mainObject.max([$(window).scrollTop()  - (containerOffsetTop - options.offsetTop), 0]),
+					});
+				}
 			},
 
 			fixedOnScroll: function ($el, options) {
@@ -137,12 +174,24 @@
 				$(window).scroll(mainObject.fixedOnScroll.bind(mainObject, $el, options));
 			}
 		};
+
+		options.offsetTop = options.offsetTop || 0;
 		mainObject.windowScroll(this, options);
+		if(!!options.resizable) {
+			if(!this.addResizeListener) {
+				console.log("note: you have to incluide jquery-resize-detect library first to resizable menu");
+			} else {
+				mainObject.checkResize(this, mainObject.resizeCallback.bind(this, options));
+			}
+		}
+
+		$(options.container).css("overflow", "hidden");
+		$("body").append( "<div style='position: fixed'></div>" );
 	};
 })($);
 
 
 $("#product-facet").stickyMenu({
 	container: ".search--results--filters",
-	offsetTop: $(".navigation--middle").outerHeight()
+	resizable: true
 });
