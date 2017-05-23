@@ -121,10 +121,8 @@
 						}
 					}
 				}
-
 				this.lastContHeight = menuContainerHeight;
 				this.lastTopSticky = stickyMenu.css("top");
-
 			},
 
 			inViewport: function($el) {
@@ -135,11 +133,6 @@
 			},
 
 			windowScroll: function($el, options) {
-				// var options = {
-				// 	offsetTop: options.offsetTop,
-				// 	stickyEl: $el,
-				// 	container: options.container
-				// };
 				mainObject.lastContHeight = $(options.container).outerHeight();
 				$(window).scroll(mainObject.fixedOnScroll.bind(mainObject, $el, options));
 			}
