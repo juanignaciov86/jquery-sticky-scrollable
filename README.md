@@ -1,2 +1,1 @@
-# stickyScrollableMenu
 # jquery-sticky-scrollable
