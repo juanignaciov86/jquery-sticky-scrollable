@@ -1,6 +1,4 @@
 (function ($) {
-
-
 	$.fn.stickyMenu = function(options) {
 		var mainObject = {
 			scrollDirection: 0,
@@ -45,16 +43,16 @@
 						"top": ""
 					});
 					return;
-				}
-
-				var offsetTop = $el.offset().top;
-				var containerOffsetTop = $container.offset().top;
-				if(offsetTop > $(window).scrollTop()) {
-					$el.css({
-						"position": "absolute",
-						"bottom": "",
-						"top": mainObject.max([$(window).scrollTop()  - (containerOffsetTop - options.offsetTop), 0]),
-					});
+				} else {
+					var offsetTop = $el.offset().top;
+					var containerOffsetTop = $container.offset().top;
+					if(offsetTop > $(window).scrollTop()) {
+						$el.css({
+							"position": "absolute",
+							"bottom": "",
+							"top": mainObject.max([$(window).scrollTop()  - (containerOffsetTop - options.offsetTop), 0]),
+						});
+					}
 				}
 			},
 
@@ -185,13 +183,7 @@
 			}
 		}
 
-		$(options.container).css("overflow", "hidden");
+		// for chrome scroll animation
 		$("body").append( "<div style='position: fixed'></div>" );
 	};
 })($);
-
-
-$("#product-facet").stickyMenu({
-	container: ".search--results--filters",
-	resizable: true
-});
