@@ -161,6 +161,7 @@
 .search--results--container > div.search--results--filters #product-facet {
   padding-bottom: 15px;
 }
+
 .search--results--container > div.search--results--filters #product-facet.with--padding--top {
   padding-top: 50px;
 }

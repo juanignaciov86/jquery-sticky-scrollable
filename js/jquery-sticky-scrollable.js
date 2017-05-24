@@ -54,6 +54,7 @@
 						});
 					}
 				}
+				$(window).scroll();
 			},
 
 			fixedOnScroll: function ($el, options) {
@@ -170,6 +171,7 @@
 			windowScroll: function($el, options) {
 				mainObject.lastContHeight = $(options.container).outerHeight();
 				$(window).scroll(mainObject.fixedOnScroll.bind(mainObject, $el, options));
+				$(window).scroll();
 			}
 		};
 
