@@ -684,6 +684,21 @@ height: 34px;
     opacity: 0.6;
 }
 
+[data-accordion].open > [data-control]:after {
+    content: "";
+    position: absolute;
+    right: 0px;
+    top: 6px;
+    font-size: 25px;
+    font-weight: 200;
+    color: #444;
+    height: 20px;
+    width: 32px;
+    background: url(../images/ficha_menos.png) center center no-repeat;
+    background-size: 50%;
+    opacity: 0.6;
+}
+
 footer {
     border-top: 5px solid white;
 }
