@@ -52,9 +52,10 @@
 							"bottom": "",
 							"top": mainObject.max([$(window).scrollTop()  - (containerOffsetTop - options.offsetTop), 0]),
 						});
+					} else {
+						$(window).scroll();
 					}
 				}
-				$(window).scroll();
 			},
 
 			fixedOnScroll: function ($el, options) {
@@ -72,8 +73,17 @@
 				var windowOffsetBottom = $(window).scrollTop() + $(window).height();
 
 				if(this.lastContHeight != menuContainerHeight) {
+					var top = function () {
+						var ret;
+						if(!!parseInt(this.lastTopSticky)){
+							ret = this.lastTopSticky;
+						} else {
+							ret =$(window).scrollTop() - containerOfMenu.offset().top + offsetTop;
+						}
+						return ret;
+					}();
 					stickyMenu.css({
-						"top": this.lastTopSticky,
+						"top": top,
 						"bottom": ""
 					});
 					this.lastContHeight = menuContainerHeight;
