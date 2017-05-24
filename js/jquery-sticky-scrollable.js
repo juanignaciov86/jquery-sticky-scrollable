@@ -184,7 +184,8 @@
 				mainObject.checkResize(this, mainObject.resizeCallback.bind(this, options));
 			}
 		}
-
+		var container = $(options.container) || this.parent();
+		container.css("overflow", "hidden");
 		// for chrome scroll animation
 		$("body").append( "<div style='position: fixed'></div>" );
 	};
